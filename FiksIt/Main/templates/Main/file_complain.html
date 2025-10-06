@@ -1,3 +1,8 @@
+<!--
+This HTML file represents a complaint submission page called "Fixit".
+It allows users to submit public complaints (like road damage, drains, etc.)
+and view a list of latest complaints. Tailwind CSS is used for styling.
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,6 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fixit</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Tailwind CSS styling section -->
     <style type="text/tailwindcss">
         body{
             @apply bg-[url('generated.png')] bg-cover bg-center font-sans h-screen;
@@ -64,8 +70,11 @@
             @apply mt-2 border border-black rounded p-2;
         }
     </style>
+    <!-- End of head section -->
 </head>
 <body>
+    
+    <!-- Header section with navigation buttons -->
     <header class="flex bg-[#970FF2] text-white p-4 justify-between m-2 rounded-lg">
         <div class="logo "></div>
         <div class="nav-links flex gap-9">
@@ -73,8 +82,11 @@
             <a href='/dashboard'><button>Dashboard</button></a>
         </div>
     </header>
+    
+    <!-- Main section containing the complaint form and latest complaints -->
     <main>
         <div class="main-page">
+                        <!-- Complaint submission form -->
             <div class="form">
                 <h3>Submit a New Complain</h3>
                 <div>
@@ -100,6 +112,7 @@
                 </div>
                 <button>Submit</button>
             </div>
+                        <!-- Section showing the latest complaints -->
             <div class="latest-complain">
                 <h2>Latest Complains</h2>
                 <div class="complain-item">
@@ -124,6 +137,8 @@
             </div>
         </div>
     </main>
+    
+    <!-- Footer section -->
     <footer>
         <div class="footer-content">
             <p>Made with love❤️</p>

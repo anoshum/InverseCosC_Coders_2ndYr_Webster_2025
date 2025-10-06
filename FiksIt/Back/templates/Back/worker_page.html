@@ -1,127 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Basic metadata setup -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Linking Bootstrap 5 for responsive styling -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     
     <title>Admin</title>
 </head>
 <body style="background-color: bisque;">
-<nav class="navbar navbar-expand-lg text-bg-danger p-3 " >
-  <div class="container-fluid" >
-    <a class="navbar-brand text-white" href="#">FiksIt</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-link active text-white" aria-current="page" href="#">Back To Login</a>
-      </div>
-    </div>
-  </div>
 
-</nav>
+    <!-- ================= NAVBAR SECTION ================= -->
+    <nav class="navbar navbar-expand-lg text-bg-danger p-3">
+        <div class="container-fluid">
+            <!-- Brand Name -->
+            <a class="navbar-brand text-white" href="#">FiksIt</a>
+
+            <!-- Navbar Toggler (for small screens) -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Navbar Links -->
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link active text-white" aria-current="page" href="#">Back To Login</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ================= MAIN CONTAINER ================= -->
     <div class="container-fluid">
         <div class="row">
-            <div class="p-3 col-8 rounded-2" style="height: 80vh; opacity: 1; "> <h1 style="font-size: 1vw;">Active complains : 50; In-working:40; Not-seen:10;</h1>
-            <div class="container">
-                <div class="row">
-                    <div class="col-6" style="overflow:scroll; height: 70vh; background-color: azure;">
-                        <!-- here the list of all complains will be shown and clicking on specific complain will lead to show its information  on the just right tab.  -->
-                        <div class="individual-complain mt-3">
-                            <div class="m-1 container-fluid bg-light p-3 rounded-3 border border-black border-1">
-                                <h5>Water Leakage</h5>
-                                <p class="lead">Near Phaphamau, in front of BaroodKhana</p>
-                                <button class="btn btn-danger">Not Started</button>
-                                <button class="btn btn-warning">Expand This</button>
-                                
-                            </div>
+            
+            <!-- ================= LEFT SIDE (Complaints & Info) ================= -->
+            <div class="p-3 col-8 rounded-2" style="height: 80vh; opacity: 1;">
+                <h1 style="font-size: 1vw;">Active complains : 50; In-working:40; Not-seen:10;</h1>
 
-                        </div>
-                        <div class="individual-complain mt-3">
-                            <div class="m-1 container-fluid bg-light p-3 rounded-3 border border-black border-1">
-                                <h5>Water Leakage</h5>
-                                <p class="lead">Near Phaphamau, in front of BaroodKhana</p>
-                                <button class="btn btn-danger">Not Started</button>
-                                <button class="btn btn-warning">Expand This</button>
-                            </div>
-                        </div>
-                        <div class="individual-complain mt-3">
-                            <div class="m-1 container-fluid bg-light p-3 rounded-3 border border-black border-1">
-                                <h5>Water Leakage</h5>
-                                <p class="lead">Near Phaphamau, in front of BaroodKhana</p>
-                                <button class="btn btn-danger">Not Started</button>
-                                <button class="btn btn-warning">Expand This</button>
-                            </div>
-                        </div>
-                        <div class="individual-complain mt-3">
-                            <div class="m-1 container-fluid bg-light p-3 rounded-3 border border-black border-1">
-                                <h5>Water Leakage</h5>
-                                <p class="lead">Near Phaphamau, in front of BaroodKhana</p>
-                                <button class="btn btn-danger">Not Started</button>
-                                <button class="btn btn-warning">Expand This</button>
-                            </div>
-                        </div>
-                        <div class="individual-complain mt-3">
-                            <div class="m-1 container-fluid bg-light p-3 rounded-3 border border-black border-1">
-                                <h5>Water Leakage</h5>
-                                <p class="lead">Near Phaphamau, in front of BaroodKhana</p>
-                                <button class="btn btn-danger">Not Started</button>
-                                <button class="btn btn-warning">Expand This</button>
-                            </div>
-                        </div>
-                        <div class="individual-complain mt-3">
-                            <div class="m-1 container-fluid bg-light p-3 rounded-3 border border-black border-1">
-                                <h5>Water Leakage</h5>
-                                <p class="lead">Near Phaphamau, in front of BaroodKhana</p>
-                                <button class="btn btn-danger">Not Started</button>
-                                <button class="btn btn-warning">Expand This</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-12 rounded-3 p-3" style="height: 40vh; background-color: rgb(255, 226, 255); overflow: scroll; ">
-                                    Here info about specific complain will be shown 
-                                    <div>
-                                        <div style="width: 100%; background-color: blue; height: 20vh;">
-                                            <p style="color: aliceblue;">Image</p>
-                                        </div>  
-                                        <h5>Water Leakage</h5>
-                                        <h6>By: Aditya Narayan Sharma</h6>
-                                        <h6>Ph : 6397352181</h6>
-                                        <p>
-                                            Leakage from 7 days no one is looking forward to fix, no response from the local civil work department. 
-                                        </p>
-                                        <button class="btn btn-success m-2">
-                                            start action
-                                        </button>
-                                        <button class="btn btn-danger m-2">
-                                            Reject
-                                        </button>
-                                        <button class="btn btn-primary m-2">
-                                            Finished
-                                        </button>
-                                        
-                                    </div>
+                <div class="container">
+                    <div class="row">
+
+                        <!-- ========== LEFT PANEL: List of Complaints ========== -->
+                        <div class="col-6" style="overflow:scroll; height: 70vh; background-color: azure;">
+                            <!-- List of all complaints. Clicking on any will show details on the right side. -->
+
+                            <!-- Example of an individual complaint card -->
+                            <div class="individual-complain mt-3">
+                                <div class="m-1 container-fluid bg-light p-3 rounded-3 border border-black border-1">
+                                    <h5>Water Leakage</h5>
+                                    <p class="lead">Near Phaphamau, in front of BaroodKhana</p>
+                                    <button class="btn btn-danger">Not Started</button>
+                                    <button class="btn btn-warning">Expand This</button>
                                 </div>
+                            </div>
 
-                                <div class="col-12" style="height: 30vh; background-color: rgb(255, 213, 243);" >
-                                    Here the completed Complains will be shown
+                            <!-- Additional dummy complaints -->
+                            <div class="individual-complain mt-3">
+                                <div class="m-1 container-fluid bg-light p-3 rounded-3 border border-black border-1">
+                                    <h5>Water Leakage</h5>
+                                    <p class="lead">Near Phaphamau, in front of BaroodKhana</p>
+                                    <button class="btn btn-danger">Not Started</button>
+                                    <button class="btn btn-warning">Expand This</button>
+                                </div>
+                            </div>
+
+                            <!-- (Repeated complaint cards just for UI demonstration) -->
+                            <div class="individual-complain mt-3">
+                                <div class="m-1 container-fluid bg-light p-3 rounded-3 border border-black border-1">
+                                    <h5>Water Leakage</h5>
+                                    <p class="lead">Near Phaphamau, in front of BaroodKhana</p>
+                                    <button class="btn btn-danger">Not Started</button>
+                                    <button class="btn btn-warning">Expand This</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ========== RIGHT PANEL: Detailed Info of Selected Complaint ========== -->
+                        <div class="col-6">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    
+                                    <!-- Top Section: Complaint Details -->
+                                    <div class="col-12 rounded-3 p-3" style="height: 40vh; background-color: rgb(255, 226, 255); overflow: scroll;">
+                                        <p>Here info about specific complaint will be shown</p>
+
+                                        <!-- Example of complaint info -->
+                                        <div>
+                                            <div style="width: 100%; background-color: blue; height: 20vh;">
+                                                <p style="color: aliceblue;">Image</p>
+                                            </div>
+                                            <h5>Water Leakage</h5>
+                                            <h6>By: Aditya Narayan Sharma</h6>
+                                            <h6>Ph : 6397352181</h6>
+                                            <p>Leakage from 7 days no one is looking forward to fix, no response from the local civil work department.</p>
+
+                                            <!-- Action Buttons -->
+                                            <button class="btn btn-success m-2">Start Action</button>
+                                            <button class="btn btn-danger m-2">Reject</button>
+                                            <button class="btn btn-primary m-2">Finished</button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Bottom Section: Completed Complaints -->
+                                    <div class="col-12" style="height: 30vh; background-color: rgb(255, 213, 243);">
+                                        Here the completed Complains will be shown
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <!-- ================= RIGHT SIDE (Map Section) ================= -->
+            <div class="bg-info col-4 rounded-2 p-3" style="height: 80vh;">
+                <!-- Map Display Section -->
+                Here map will be shown
             </div>
-            <div class="bg-info col-4 rounded-2 p-3" style=" height: 80vh;"> here map will be shown</div>
         </div>
     </div>
-    
+
+    <!-- Bootstrap JavaScript Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-    
+
 </body>
 </html>

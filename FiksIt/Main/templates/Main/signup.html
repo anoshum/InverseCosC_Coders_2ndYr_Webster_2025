@@ -1,3 +1,8 @@
+<!--
+This HTML file represents a Sign-Up page for the "Fixit" platform.
+It allows users to register and view the latest complaints.
+Tailwind CSS is used for modern styling and responsiveness.
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,6 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fixit</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Tailwind CSS styling section -->
     <style type="text/tailwindcss">
        body{
             @apply bg-[url('generated.png')] bg-cover bg-center font-sans font-sans;
@@ -79,8 +85,11 @@
             @apply mt-2 border border-black rounded p-2;
         }
     </style>
+    <!-- End of head section -->
 </head>
 <body>
+    
+    <!-- Header section with navigation buttons -->
     <header class="flex bg-[#970FF2] text-white p-2 justify-between m-2 rounded-lg">
         <div class="logo">img</div>
         <div class="nav-links flex gap-9">
@@ -89,9 +98,12 @@
             <button class="bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded">Dashboard</button>
         </div>
     </header>
+    
+    <!-- Main section: includes signup form, latest complaints, and an image -->
     <main>
         <div class="contents">
-            <div class="form">
+                            <!-- Signup form -->
+                <div class="form">
                 <p>Sign Up</p>
                 <input type="text" placeholder="Enter Username" required>
                 <input type="email" placeholder="Enter Email" required>
@@ -100,6 +112,7 @@
                 <button class="submit">Sign Up</button>
                 <p>Already have an account? <a href="/">Login</a></p>
             </div>
+                        <!-- Section displaying recent complaints -->
             <div class="latest-complain">
                 <h2>Latest Complains</h2>
                 <div class="complain-item">
@@ -122,11 +135,14 @@
                 </div>
             </div>
             <div>
+                                <!-- Django static file loading for image -->
                 {% load static %}
                 <img src="{% static 'Main/image.png' %}" alt="Feature Image">
             </div>
         </div>    
     </main>
+    
+    <!-- Footer section with closing message -->
     <footer>
         <div class="footer-content">
             <p>Made with love❤️</p>

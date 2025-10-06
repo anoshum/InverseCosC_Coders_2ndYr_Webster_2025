@@ -8,3 +8,5 @@ def File_new(request):
     return render(request,'Main/file_complain.html')
 def Sign_Up(request):
     return render(request,'Main/signup.html')
+def Dash(request):
+    return render(request,'Main/user_dash.html')

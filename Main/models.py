@@ -25,11 +25,12 @@ class Complain(models.Model):
     complain_id = models.AutoField
     domain_name = models.CharField(max_length=20,default='idc')
     user_name = models.CharField(max_length=30,default='idc')
-    status = models.CharField(max_length=12,default='w')
+    status = models.CharField(max_length=12,default='Pending')
     info = models.CharField(max_length=500,default='idc')
-    location = models.CharField(max_length=50,default='idc')
-    imgname = models.CharField(max_length=50,default='idc')
+    landmark = models.CharField(max_length=50,default='idc')
     image = models.ImageField(upload_to="Main/images",default="")
+    locx = models.CharField(max_length=20,default='0')
+    locy = models.CharField(max_length=20,default='0')
     
     def __str__(self):
         return self.location

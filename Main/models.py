@@ -33,4 +33,4 @@ class Complain(models.Model):
     locy = models.CharField(max_length=20,default='0')
     
     def __str__(self):
-        return self.location
+        return self.landmark

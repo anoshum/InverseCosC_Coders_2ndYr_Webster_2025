@@ -16,3 +16,12 @@ class Worker(models.Model):
     worker_phone = models.CharField(max_length=12)
     worker_email = models.CharField(max_length=50)
     
+class Complain(models.Model):
+    complain_id = models.AutoField
+    domain_name = models.CharField(max_length=20,default='idc')
+    user_name = models.CharField(max_length=30,default='idc')
+    status = models.CharField(max_length=12,default='w')
+    info = models.CharField(max_length=500,default='idc')
+    location = models.CharField(max_length=50,default='idc')
+    imgname = models.CharField(max_length=50,default='idc')
+    image = models.ImageField(upload_to="Main/images",default="")

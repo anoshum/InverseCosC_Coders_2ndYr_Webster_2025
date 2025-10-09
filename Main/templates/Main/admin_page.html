@@ -43,12 +43,14 @@
 
       <div class="container">
         <div class="row">
-
+         
           <!-- 📋 Left Column: List of All Complaints -->
           <div class="col-6" style="overflow:scroll; height: 70vh; background-color: azure;">
             <!-- Each complaint block is shown below -->
             <!-- Clicking a complaint will display its details on the right panel -->
-            
+             {% for comp in complains%}
+          
+          
             <div class="individual-complain mt-3">
               <div class="m-1 container-fluid bg-light p-3 rounded-3 border border-black border-1">
                 <h5>Water Leakage</h5>
@@ -58,54 +60,8 @@
               </div>
             </div>
 
-            <!-- Duplicate complaint blocks (temporary placeholders for layout) -->
-            <div class="individual-complain mt-3">
-              <div class="m-1 container-fluid bg-light p-3 rounded-3 border border-black border-1">
-                <h5>Water Leakage</h5>
-                <p class="lead">Near Phaphamau, in front of BaroodKhana</p>
-                <button class="btn btn-danger">Not Started</button>
-                <button class="btn btn-warning">Expand This</button>
-              </div>
-            </div>
-
-            <div class="individual-complain mt-3">
-              <div class="m-1 container-fluid bg-light p-3 rounded-3 border border-black border-1">
-                <h5>Water Leakage</h5>
-                <p class="lead">Near Phaphamau, in front of BaroodKhana</p>
-                <button class="btn btn-danger">Not Started</button>
-                <button class="btn btn-warning">Expand This</button>
-              </div>
-            </div>
-
-            <!-- Additional repeated entries -->
-            <div class="individual-complain mt-3">
-              <div class="m-1 container-fluid bg-light p-3 rounded-3 border border-black border-1">
-                <h5>Water Leakage</h5>
-                <p class="lead">Near Phaphamau, in front of BaroodKhana</p>
-                <button class="btn btn-danger">Not Started</button>
-                <button class="btn btn-warning">Expand This</button>
-              </div>
-            </div>
-
-            <div class="individual-complain mt-3">
-              <div class="m-1 container-fluid bg-light p-3 rounded-3 border border-black border-1">
-                <h5>Water Leakage</h5>
-                <p class="lead">Near Phaphamau, in front of BaroodKhana</p>
-                <button class="btn btn-danger">Not Started</button>
-                <button class="btn btn-warning">Expand This</button>
-              </div>
-            </div>
-
-            <div class="individual-complain mt-3">
-              <div class="m-1 container-fluid bg-light p-3 rounded-3 border border-black border-1">
-                <h5>Water Leakage</h5>
-                <p class="lead">Near Phaphamau, in front of BaroodKhana</p>
-                <button class="btn btn-danger">Not Started</button>
-                <button class="btn btn-warning">Expand This</button>
-              </div>
-            </div>
+        {% endfor %}
           </div>
-
           <!-- Right Column: Detailed Complaint Info -->
           <div class="col-6">
             <div class="container-fluid">

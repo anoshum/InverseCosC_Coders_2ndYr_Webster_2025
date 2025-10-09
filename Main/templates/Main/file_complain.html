@@ -11,6 +11,9 @@ and view a list of latest complaints. Tailwind CSS is used for styling.
     <title>Fixit</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
     <!-- Tailwind CSS styling section -->
     <style type="text/tailwindcss">
         body{
@@ -73,6 +76,12 @@ and view a list of latest complaints. Tailwind CSS is used for styling.
         .image-upload input{
             @apply mt-2 border border-black rounded p-2;
         }
+        #map {
+            height: 300px;
+            width: 100%;
+            margin-top: 12px;
+            border: 2px solid black;
+            border-radius: 8px;}
     </style>
     <!-- End of head section -->
 </head>
@@ -105,9 +114,29 @@ and view a list of latest complaints. Tailwind CSS is used for styling.
 
                     </select>
                     <div class="description">Description</div>
-                    <textarea name="description" id="description" cols="30" rows="10" placeholder="Describe your issue..."></textarea>
-                    <div class="location">Location</div>
-                    <input type="text" name="location" id="location" placeholder="Enter location">
+                    <textarea name="description" id="description" cols="20" rows="5" placeholder="Describe your issue..."></textarea>
+                    <form id="locationForm">
+
+                        <div class="controls">
+                        <button type="button" id="btnLocate">Use my device location</button>
+                        <button type="button" id="btnCenter">Center to selected</button>
+                        </div>
+                        <div class="inputs flex gap-4 mt-2">
+                            <div>
+                                <label>Latitude</label>
+                                <input id="latitude" type="text" placeholder="Latitude" readonly>
+                            </div>
+                            <div>
+                                <label>Longitude</label>
+                                <input id="longitude" type="text" placeholder="Longitude" readonly>
+                            </div>
+                        </div>
+                        <div class="hint" id="permissionHint">You can also click on the map to choose a location.</div>
+                        <div class="error" id="errMsg" style="display:none"></div>
+                        <button type="submit" style="margin-top:10px">Submit</button>
+                    </form>
+                    <div id="map"></div>
+
                     <div class="image-upload">
                         <label for="image">Upload Image</label>
                         <input type="file" id="image" name="image" accept="image/*">
@@ -145,5 +174,137 @@ and view a list of latest complaints. Tailwind CSS is used for styling.
             <p>Made by team InverseCosC_Coders 😎</p>
         </div>
     </footer>
+    <script>
+  // Basic Leaflet setup
+  var map = L.map('map').setView([28.6139, 81.863350], 13);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+
+  var marker = null;
+
+  // Helper to set marker and inputs
+  function setLocation(lat, lng, openPopup=false) {
+    if (marker) map.removeLayer(marker);
+    marker = L.marker([lat, lng]).addTo(map);
+    if (openPopup) marker.bindPopup('Selected location').openPopup();
+
+    document.getElementById('latitude').value = parseFloat(lat).toFixed(6);
+    document.getElementById('longitude').value = parseFloat(lng).toFixed(6);
+  }
+
+  // Map click fallback for manual selection
+  map.on('click', function(e) {
+    var lat = e.latlng.lat, lng = e.latlng.lng;
+    setLocation(lat, lng, true);
+    hideError();
+  });
+
+  // Permission / geolocation logic
+  var btnLocate = document.getElementById('btnLocate');
+  var errBox = document.getElementById('errMsg');
+  function showError(msg) {
+    errBox.style.display = 'block';
+    errBox.textContent = msg;
+  }
+  function hideError() {
+    errBox.style.display = 'none';
+    errBox.textContent = '';
+  }
+
+  // Options for geolocation
+  var geoOptions = {
+    enableHighAccuracy: true,
+    timeout: 10000,      // 10 seconds
+    maximumAge: 0
+  };
+
+  // Function to request current position (shows browser permission prompt)
+  function requestCurrentPosition() {
+    if (!('geolocation' in navigator)) {
+      showError('Geolocation API not supported by your browser.');
+      return;
+    }
+
+    // Optionally check permission status to provide calmer UX
+    if (navigator.permissions && navigator.permissions.query) {
+      navigator.permissions.query({ name: 'geolocation' }).then(function(status) {
+        // status.state: 'granted', 'prompt', 'denied'
+        if (status.state === 'denied') {
+          showError('Location permission is blocked. Please enable location for this site in browser settings and try again.');
+          return;
+        }
+        // If 'prompt' or 'granted', ask for location
+        getPosition();
+      }).catch(function() {
+        // If permissions API not available or fails, directly request position
+        getPosition();
+      });
+    } else {
+      getPosition();
+    }
+
+    function getPosition() {
+      hideError();
+      navigator.geolocation.getCurrentPosition(function(position) {
+        // Success callback
+        var lat = position.coords.latitude;
+        var lng = position.coords.longitude;
+        setLocation(lat, lng, true);
+        // Zoom-in a bit
+        map.setView([lat, lng], 16);
+      }, function(err) {
+        // Error callback
+        switch(err.code) {
+          case err.PERMISSION_DENIED:
+            showError('Permission denied. You can still choose a location by clicking on the map.');
+            break;
+          case err.POSITION_UNAVAILABLE:
+            showError('Position unavailable. Try again or pick a location manually.');
+            break;
+          case err.TIMEOUT:
+            showError('Request timed out. Try again or pick a location manually.');
+            break;
+          default:
+            showError('Error getting location: ' + err.message);
+        }
+      }, geoOptions);
+    }
+  }
+
+  btnLocate.addEventListener('click', requestCurrentPosition);
+
+  // Optional: center the map to currently selected coordinates
+  document.getElementById('btnCenter').addEventListener('click', function() {
+    var lat = parseFloat(document.getElementById('latitude').value);
+    var lng = parseFloat(document.getElementById('longitude').value);
+    if (!isNaN(lat) && !isNaN(lng)) {
+      map.setView([lat, lng], 16);
+    } else {
+      showError('No location selected yet. Use "Use my device location" or click on the map.');
+    }
+  });
+
+  // Demo submit handler (replace with real form send to server)
+  document.getElementById('locationForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var name = document.getElementById('name').value.trim();
+    var lat = document.getElementById('latitude').value.trim();
+    var lon = document.getElementById('longitude').value.trim();
+    if (!name) {
+      showError('Please enter your name.');
+      return;
+    }
+    if (!lat || !lon) {
+      showError('Please select a location (either allow device location or pick on the map).');
+      return;
+    }
+    hideError();
+    // Here you would send `name`, `lat`, `lon` to your server via fetch/ajax
+    // Example:
+    // fetch('/submit', { method:'POST', body: JSON.stringify({name, lat, lon}), headers: {'Content-Type':'application/json'} })
+    alert('Form ready to submit:\\nName: ' + name + '\\nLat: ' + lat + '\\nLon: ' + lon);
+  });
+  </script>
 </body>
 </html>

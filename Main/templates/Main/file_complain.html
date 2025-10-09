@@ -19,6 +19,9 @@ and view a list of latest complaints. Tailwind CSS is used for styling.
         button{
             @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded;
         }
+        .logo{
+            @apply font-bold text-2xl p-3;
+        }
         .form{
             @apply bg-[#FCD2FF] p-6 rounded-lg shadow-md m-4 w-2/3;
         }
@@ -62,10 +65,10 @@ and view a list of latest complaints. Tailwind CSS is used for styling.
             @apply text-sm text-black;
         }
         footer{
-            @apply bg-[#970FF2] text-white p-4 text-center;
+            @apply bg-[#970FF2] text-white p-2 text-center;
         }
         .footer-content p{
-            @apply text-sm;
+            @apply text-lg my-2;
         }
         .image-upload input{
             @apply mt-2 border border-black rounded p-2;
@@ -76,9 +79,9 @@ and view a list of latest complaints. Tailwind CSS is used for styling.
 <body>
     
     <!-- Header section with navigation buttons -->
-    <header class="flex bg-[#970FF2] text-white p-4 justify-between m-2 rounded-lg">
+    <header class="flex bg-[#970FF2] text-white p-2 justify-between m-2 rounded-lg">
         <div class="logo ">FiksIt</div>
-        <div class="nav-links flex gap-9">
+        <div class="nav-links flex gap-9 my-2 mx-2">
             <a href='/'><button>Home</button></a>
             <a href='/dashboard'><button>Dashboard</button></a>
         </div>
@@ -96,7 +99,6 @@ and view a list of latest complaints. Tailwind CSS is used for styling.
                         <option value="">Select a category</option>
                         <option value="plumbing">Road Damage</option>
                         <option value="leckage">Overflowing drains</option>
-                        <option value="OverflowingBins">Overflowing bins</option>
                         <option value="waterline">Broken water lines</option>
                         <option value="streetlight">Streetlight issues</option>
                         <option value="others">Any Other Issue</option>

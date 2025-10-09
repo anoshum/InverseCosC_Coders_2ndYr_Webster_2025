@@ -10,3 +10,7 @@ def Sign_Up(request):
     return render(request,'Main/signup.html')
 def Dash(request):
     return render(request,'Main/user_dash.html')
+def admin_page(request):
+    return render(request,'Main/admin_page.html') 
+def worker(request):
+    return render(request,'Main/worker_page.html')

@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <style type="text/tailwindcss">
+        body{
+            @apply bg-gradient-to-br from-emerald-200/60 via-teal-200/50 to-lime-100/60 backdrop-blur-2xl;
+        }
         button{
             @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded;
         }
@@ -36,11 +39,11 @@
             <div class="p-3 col-8 rounded-2" style="height: 80vh; opacity: 1; ">
             <div class="container">
                 <div class="row">
-                    <div class="col-12" style="overflow:scroll; height:78vh; background-color: azure; border-radius: 10px;">
+                    <div class="col-12 " style="overflow:scroll; height:70vh; background-color: azure; border-radius: 10px;">
                     <div class="col-6" style=" background-color: azure; border-radius: 10px;"> 
                         <!-- here the list of all complains will be shown and clicking on specific complain will lead to show its information  on the just right tab.  -->
 
-                        {% for comp in complains %}
+            {% for comp in complains %}
             <div class="individual-complain mt-3">
               <div class="m-1 container-fluid bg-light p-3 rounded-3 border border-black border-1">
                 <h5>{{ comp.domain_name}}</h5>
@@ -54,10 +57,8 @@
             </div>
             {% endfor %}
                     </div>
-                    
                 </div>
             </div>
-            
         </div>
     </div>
     </div>

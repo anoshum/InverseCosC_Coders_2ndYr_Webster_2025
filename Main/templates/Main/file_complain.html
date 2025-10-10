@@ -100,69 +100,51 @@ and view a list of latest complaints. Tailwind CSS is used for styling.
     <main>
         <div class="main-page">
             <!-- Complaint submission form -->
-            <div class="form">
+            <form class="form" action='sc' method='post' enctype='multipart/form-data'>
+              {%csrf_token%}
                 <h3>Submit a New Complain</h3>
                 <div>
                     <div  class="catogery">Catogery</div>
-                    <select name="category" id="category">
+                    <input type='hidden' name='un' value={{usern}}>
+                    <select name="cat" id="category">
                         <option value="">Select a category</option>
-                        <option value="plumbing">Road Damage</option>
-                        <option value="leckage">Overflowing drains</option>
-                        <option value="waterline">Broken water lines</option>
-                        <option value="streetlight">Streetlight issues</option>
-                        <option value="others">Any Other Issue</option>
-
+                        <option value="Civil">Civil</option>
+                        <option value="Electricity">Electricity</option>
+                        <option value="Sanitary">Sanitary</option>
+                        <option value="Water">Water</option>
+                        
                     </select>
                     <div class="description">Description</div>
-                    <textarea name="description" id="description" cols="20" rows="5" placeholder="Describe your issue..."></textarea>
-                    <input type="text" class="mb-2" name="Landmark" id="Landmark" placeholder="Enter a landmark...">
-                    <form id="locationForm">
+                    <textarea name="desc" cols="20" rows="5" placeholder="Describe your issue..."></textarea>
+                    <input type="text" class="mb-2" name="lm" id="Landmark" placeholder="Enter a landmark...">
+                    <div id="locationForm">
                         <div class="controls">
                         <button type="button" id="btnLocate">Use my device location</button>
                         </div>
                         <div class="inputs flex gap-4 mt-2">
                             <div>
                                 <label>Latitude</label>
-                                <input id="latitude" type="text" placeholder="Latitude" readonly>
+                                <input id="latitude" name='lat' type="text" placeholder="Latitude" readonly>
                             </div>
                             <div>
                                 <label>Longitude</label>
-                                <input id="longitude" type="text" placeholder="Longitude" readonly>
+                                <input id="longitude" name='long' type="text" placeholder="Longitude" readonly>
                             </div>
                         </div>
                         <div class="hint" id="permissionHint">You can also click on the map to choose a location.</div>
                         <div class="error" id="errMsg" style="display:none"></div>
-                    </form>
+                      </div>
                     <div id="map"></div>
 
                     <div class="image-upload">
                         <label for="image">Upload Image</label>
-                        <input type="file" id="image" name="image" accept="image/*">
+                        <input type="file" id="image" name="image" >
                     </div>
                 </div>
-                <button>Submit</button>
+             <input type='submit' class='btn btn-primary'>
             </div>
                         <!-- Section showing the latest complaints -->
-            <div class="latest-complain">
-                <h2>Latest Complains</h2>
-                <div class="individual-complain mt-3">
-                    <div class="m-1 container-fluid bg-light p-3 rounded-3 border border-black border-1">
-                            <h5>Water Leakage</h5>
-                        <p class="lead">Near Phaphamau, in front of BaroodKhana</p>
-                        <button class="btn btn-danger">Not Started</button>
-                        <button class="btn btn-warning">Expand This</button>
-                    </div>
-                </div>
-                <div class="individual-complain mt-3">
-                    <div class="m-1 container-fluid bg-light p-3 rounded-3 border border-black border-1">
-                        <h5>Water Leakage</h5>
-                        <p class="lead">Near Phaphamau, in front of BaroodKhana</p>
-                        <button class="btn btn-danger">Not Started</button>
-                        <button class="btn btn-warning">Expand This</button>
-                    </div>
-                </div>
-                
-            </div>
+            
         </div>
     </main>
     

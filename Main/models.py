@@ -1,8 +1,10 @@
 from django.db import models
 
 # Create your models here.
-class User(models.Model):
+class Usr(models.Model):
+
     user_id = models.AutoField
+    real_name =models.CharField(max_length=30,default='')
     user_name = models.CharField(max_length=20)
     user_pass = models.CharField(max_length=30)
     user_phone = models.CharField(max_length=12)
@@ -28,9 +30,9 @@ class Complain(models.Model):
     status = models.CharField(max_length=12,default='Pending')
     info = models.CharField(max_length=500,default='idc')
     landmark = models.CharField(max_length=50,default='idc')
-    image = models.ImageField(upload_to="Main/images",default="")
+    image = models.ImageField(upload_to="images/",default="")
     locx = models.CharField(max_length=20,default='0')
     locy = models.CharField(max_length=20,default='0')
-    
+    datee = models.CharField(max_length=10,default='1/1/2000')
     def __str__(self):
         return self.landmark

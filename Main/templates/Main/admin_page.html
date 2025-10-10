@@ -45,7 +45,7 @@
         <div class="row">
          
           <!-- 📋 Left Column: List of All Complaints -->
-          <div class="col-6" style="overflow:scroll; height: 70vh; background-color: azure;">
+          <div class="col-12" style="overflow:scroll; height: 70vh; background-color: azure;">
             <!-- Each complaint block is shown below -->
             <!-- Clicking a complaint will display its details on the right panel -->
              {% for comp in complains%}
@@ -55,50 +55,20 @@
               <div class="m-1 container-fluid bg-light p-3 rounded-3 border border-black border-1">
                 <h5>{{ comp.domain_name}}</h5>
                 <p class="lead">{{ comp.info}}</p>
-                <button class="btn btn-danger">Not Started</button>
-                <button class="btn btn-warning">Expand This</button>
+                <button class="btn btn-danger">{{comp.status}}</button>
+                <button class="btn btn-success">Promote</button>
+                <button class="btn btn-primary">On Map</button>
+                
+                <p class="lead fw-bolder">By : {{ comp.user_name}}</p>
+                <p class="lead fw-bolder">Date : {{ comp.datee}}</p>
+                <img src= 'images/{{comp.image}}' class='border-3 border-danger rounded-3'>
+                
               </div>
             </div>
 
         {% endfor %}
           </div>
-          <!-- Right Column: Detailed Complaint Info -->
-          <div class="col-6">
-            <div class="container-fluid">
-              <div class="row">
-
-                <!-- Complaint Details Display -->
-                <div class="col-12 rounded-3 p-3" 
-                     style="height: 40vh; background-color: rgb(255, 226, 255); overflow: scroll;">
-                  <!-- Info about a specific complaint will be shown here -->
-                  <div>
-                    <!-- Placeholder for image/video -->
-                    <div style="width: 100%; background-color: blue; height: 20vh;">
-                      <p style="color: aliceblue;">Image</p>
-                    </div>
-
-                    <!-- Complaint details -->
-                    <h5>Water Leakage</h5>
-                    <h6>By: Aditya Narayan Sharma</h6>
-                    <h6>Ph : 6397352181</h6>
-                    <p>
-                      Leakage from 7 days; no one is looking forward to fix it. No response from the local civil work department.
-                    </p>
-
-                    <!-- Admin Action Buttons -->
-                    <button class="btn btn-success m-2">Start Action</button>
-                    <button class="btn btn-danger m-2">Reject</button>
-                    <button class="btn btn-primary m-2">Finished</button>
-                  </div>
-                </div>
-
-                <!-- Completed Complaints Section -->
-                <div class="col-12" style="height: 30vh; background-color: rgb(255, 213, 243);">
-                  Here the completed complaints will be shown
-                </div>
-              </div>
-            </div>
-          </div>
+          
 
         </div>
       </div>

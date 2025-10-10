@@ -37,9 +37,10 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12" style="overflow:scroll; height:78vh; background-color: azure; border-radius: 10px;">
+                    <div class="col-6" style=" background-color: azure; border-radius: 10px;"> 
                         <!-- here the list of all complains will be shown and clicking on specific complain will lead to show its information  on the just right tab.  -->
-                        
-                        {% for comp in complains%}
+
+                        {% for comp in complains %}
             <div class="individual-complain mt-3">
               <div class="m-1 container-fluid bg-light p-3 rounded-3 border border-black border-1">
                 <h5>{{ comp.domain_name}}</h5>
@@ -56,11 +57,12 @@
                     
                 </div>
             </div>
-            </div>
-            <div id="map" class="map bg-info col-4 rounded-2 p-3" style=" height: 80vh;">map</div>
+            
         </div>
     </div>
-
+    </div>
+        <div id="map" class="map bg-info h-96 m-4 rounded-2 p-2">
+    </div>
         <!-- Footer section -->
     <footer>
         <div class="footer-content">
@@ -68,10 +70,8 @@
         </div>
     </footer>
     <script>
-        // Step 1: Initialize map (centered around a main point)
         var map = L.map('map').setView([28.6139, 77.2090], 13);
 
-        // Step 2: Add OpenStreetMap tile layer
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; OpenStreetMap contributors'
         }).addTo(map);
@@ -85,10 +85,9 @@
         { name: "Lodhi Garden", lat: 28.5933, lon: 77.2197 }
         ];
 
-        // Step 4: Loop through locations and add markers
         locations.forEach(function(place) {
-        var marker = L.marker([place.lat, place.lon]).addTo(map);
-        marker.bindPopup(`<b>${place.name}</b><br>Latitude: ${place.lat}<br>Longitude: ${place.lon}`);
+            var marker = L.marker([place.lat, place.lon]).addTo(map);
+            marker.bindPopup(`<b>${place.name}</b><br>Water Logging<br>Date`);
         });
   </script>
 </body>

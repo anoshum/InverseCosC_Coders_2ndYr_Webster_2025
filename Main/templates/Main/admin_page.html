@@ -5,33 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Linking Bootstrap CSS for styling -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" 
-          rel="stylesheet" 
-          integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" 
-          crossorigin="anonymous">
+    rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-  </head>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <title>Admin</title>
+    <style type="text/tailwindcss">
+        button{
+          @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded;
+        }
+        .logo{
+            @apply font-bold text-2xl p-2;
+        }
+    </style>
 </head>
 
-<body style="background-color: bisque;">
+<body style="bg-gradient-to-br from-emerald-200/60 via-teal-200/50 to-lime-100/60 backdrop-blur-2xl">
 
 <!-- Navigation Bar Section -->
-<nav class="navbar navbar-expand-lg text-bg-danger p-3">
-  <div class="container-fluid">
-    <a class="navbar-brand text-white" href="#">FiksIt</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <!-- Navbar Links -->
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-link active text-white" aria-current="page" href="#">Back To Login</a>
-      </div>
-    </div>
-  </div>
-</nav>
+<header class="flex bg-[#970FF2] text-white p-2 justify-between m-2 rounded-lg">
+        <div class="logo">FiksIt</div>
+        <div class="nav-links flex gap-9">
+            <button class="bg-[#FCD2FF] hover:bg-blue-500 text-white rounded">Home</button>
+        </div>
+    </header>
 
 <!-- Main Content Section -->
 <div class="container-fluid">
@@ -75,8 +72,8 @@
     </div>
 
     <!-- Map Section (for complaint heatmap visualization) -->
-    <div class="bg-info col-4 rounded-2 p-3" style="height: 80vh;">
-      Here map will be shown
+    <div>
+        <div id="map" class="map bg-info h-96 m-4 rounded-2 p-2">
     </div>
 
   </div>
@@ -99,11 +96,32 @@
     </div>
   </div>
 </div>
+    
+<!-- Footer Section -->
+<footer class="bg-[#970FF2] text-white p-2 text-center">
+    <div class="footer-content">
+        <p>Made by team InverseCosC_Coders 😎</p>
+    </div>
+<script>
+        var map = L.map('map').setView([28.6139, 77.2090], 13);
 
-<!-- Bootstrap JS (for responsive behavior & interactivity) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" 
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" 
-        crossorigin="anonymous"></script>
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
 
+        // Step 3: List of nearby locations (latitude, longitude, name)
+        var locations = [
+        { name: "AIIMS Hospital", lat: 28.5665, lon: 77.2100 },
+        { name: "India Gate", lat: 28.6129, lon: 77.2295 },
+        { name: "Connaught Place", lat: 28.6315, lon: 77.2167 },
+        { name: "Lotus Temple", lat: 28.5535, lon: 77.2588 },
+        { name: "Lodhi Garden", lat: 28.5933, lon: 77.2197 }
+        ];
+
+        locations.forEach(function(place) {
+            var marker = L.marker([place.lat, place.lon]).addTo(map);
+            marker.bindPopup(`<b>${place.name}</b><br>Water Logging<br>Date`);
+        });
+  </script>
 </body>
 </html>

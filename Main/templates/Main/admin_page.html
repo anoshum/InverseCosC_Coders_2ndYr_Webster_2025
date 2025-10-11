@@ -25,9 +25,7 @@
 <!-- Navigation Bar Section -->
 <header class="flex bg-[#970FF2] text-white p-2 justify-between m-2 rounded-lg">
         <div class="logo">FiksIt</div>
-        <div class="nav-links flex gap-9">
-            <button class="bg-[#FCD2FF] hover:bg-blue-500 text-white rounded">Home</button>
-        </div>
+        
     </header>
 
 <!-- Main Content Section -->
@@ -35,9 +33,8 @@
   <div class="row">
 
     <!-- Complaint Overview & List Section -->
-    <div class="p-3 col-8 rounded-2" style="height: 80vh;">
-      <h1 style="font-size: 1vw;">Active Complaints: 50 | In-working: 40 | Not-seen: 10</h1>
-
+    <div class="p-3 col-12 rounded-2" style="height: 80vh;">
+      
       <div class="container">
         <div class="row">
          
@@ -52,13 +49,26 @@
               <div class="m-1 container-fluid bg-light p-3 rounded-3 border border-black border-1">
                 <h5>{{ comp.domain_name}}</h5>
                 <p class="lead">{{ comp.info}}</p>
+                {%if comp.status == 'Pending'%}
                 <button class="btn btn-danger">{{comp.status}}</button>
-                <button class="btn btn-success">Promote</button>
-                <button class="btn btn-primary">On Map</button>
+                {% endif %}
+                {%if comp.status == 'Working'%}
+                <button class="btn btn-warning">{{comp.status}}</button>
+                {% endif %}
+                {%if comp.status == 'Done'%}
+                <button class="btn btn-primary">{{comp.status}}</button>
+                {% endif %}
+                <br />
+                <br />
+                <form action='upd' method='Post'>
+                  {%csrf_token%}
+                  <input type ='hidden' name='id' value='{{comp.id}}'>
+                  <input type='submit' value='promote' class='btn btn-success'>
+                </form>
                 
                 <p class="lead fw-bolder">By : {{ comp.user_name}}</p>
                 <p class="lead fw-bolder">Date : {{ comp.datee}}</p>
-                <img src= 'images/{{comp.image}}' class='border-3 border-danger rounded-3'>
+                <img src= 'images/{{comp.image}}' style='width:70%;'class='border-3 border-danger  rounded-3'>
                 
               </div>
             </div>
@@ -83,17 +93,33 @@
 <div class="text-lg-center container-fluid" style="background-color: rgb(207, 164, 247);">
   <div class="row lead p-3 text-white container-fluid">
     <div class="col-3">
-      <button class="btn btn-primary btn-lg">Sanitary Complaints</button>
+      <form method='post' action='dmn'>
+        {%csrf_token%}
+        <input type ='hidden' name='cat' value='Sanitary'>
+        <input type='submit' class="btn btn-primary btn-lg" value='Sanitary Complaints'>
+      </form>
     </div>
     <div class="col-3">
-      <button class="btn btn-secondary btn-lg">Road Complaints</button>
+      <form method='post' action='dmn'>
+        {%csrf_token%}
+        <input type ='hidden' name='cat' value='Civil'>
+        <input type='submit' class="btn btn-secondary btn-lg" value='Civil Complaints'>
+      </form>
     </div>
     <div class="col-3">
-      <button class="btn btn-warning btn-lg">Electricity Complaints</button>
+      <form method='post' action='dmn'>
+        {%csrf_token%}
+        <input type ='hidden' name='cat' value='Electricity'>
+        <input type='submit' class="btn btn-warning btn-lg" value='Electricity Complaints'>
+      </form>
     </div>
     <div class="col-3">
-      <button class="btn btn-success btn-lg">Environmental Complaints</button>
-    </div>
+      <form method='post' action='dmn'>
+        {%csrf_token%}
+        <input type ='hidden' name='cat' value='Water'>
+        <input type='submit' class="btn btn-success btn-lg" value='Water Complaints'>
+      </form>
+      </div>
   </div>
 </div>
     
@@ -103,7 +129,7 @@
         <p>Made by team InverseCosC_Coders 😎</p>
     </div>
 <script>
-        var map = L.map('map').setView([28.6139, 77.2090], 13);
+        var map = L.map('map').setView([25.493668, 81.863350], 13);
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; OpenStreetMap contributors'
@@ -111,16 +137,15 @@
 
         // Step 3: List of nearby locations (latitude, longitude, name)
         var locations = [
-        { name: "AIIMS Hospital", lat: 28.5665, lon: 77.2100 },
-        { name: "India Gate", lat: 28.6129, lon: 77.2295 },
-        { name: "Connaught Place", lat: 28.6315, lon: 77.2167 },
-        { name: "Lotus Temple", lat: 28.5535, lon: 77.2588 },
-        { name: "Lodhi Garden", lat: 28.5933, lon: 77.2197 }
+        {% for comp in complains %}
+        { name: "{{comp.landmark}}", lat: {{comp.locx}}, lon: {{comp.locy}} },
+        
+        {% endfor%}
         ];
-
         locations.forEach(function(place) {
             var marker = L.marker([place.lat, place.lon]).addTo(map);
-            marker.bindPopup(`<b>${place.name}</b><br>Water Logging<br>Date`);
+            {% comment %} marker.bindPopup(`<b>${place.name}</b><br>Water Logging<br>Date`); {% endcomment %}
+        
         });
   </script>
 </body>

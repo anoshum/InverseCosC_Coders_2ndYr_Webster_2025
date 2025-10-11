@@ -31,7 +31,7 @@
 <header class="flex bg-[#970FF2] text-white p-1 justify-between m-2 rounded-lg">
     <div class="logo ">FiksIt</div>
     <div class="nav-links flex gap-9 my-2 mx-2">
-        <form action='/new' method='post'>{%csrf_token%}<input type='hidden' name='un' value='{{usern}}'><input type='submit' value='file complain' class='btn btn-primary'></form>
+        <form action='/new' method='post'>{%csrf_token%}<input type='hidden' name='un' value='{{usern}}'><input type='hidden' name='ps' value='{{pass}}'><input type='submit' value='file complain' class='btn btn-primary'></form>
     </div>
 </header>
     <div class="container-fluid">
@@ -48,8 +48,15 @@
                             <div class="m-1 container-fluid bg-light p-3 rounded-3 border border-black border-1">
                                 <h5>{{ comp.domain_name}}</h5>
                                 <p class="lead">{{ comp.info}}</p>
-                                <button class="btn btn-danger">{{comp.status}}</button>
-                                <button class="btn btn-primary">On Map</button>
+{%if comp.status == 'Pending'%}
+                <button class="btn btn-danger">{{comp.status}}</button>
+                {% endif %}
+                {%if comp.status == 'Working'%}
+                <button class="btn btn-warning">{{comp.status}}</button>
+                {% endif %}
+                {%if comp.status == 'Done'%}
+                <button class="btn btn-success">{{comp.status}}</button>
+                {% endif %}
                                 <p class="lead fw-bolder">Date : {{ comp.datee}}</p>
                                 <img style='width:70%;' src= 'images/{{comp.image}}' class='border-3 border-danger rounded-3' >
                             </div>
@@ -74,7 +81,7 @@
         </div>
     </footer>
     <script>
-        var map = L.map('map').setView([28.6139, 77.2090], 13);
+        var map = L.map('map').setView([25.493668, 81.863350], 13);
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; OpenStreetMap contributors'
@@ -82,16 +89,15 @@
 
         // Step 3: List of nearby locations (latitude, longitude, name)
         var locations = [
-        { name: "AIIMS Hospital", lat: 28.5665, lon: 77.2100 },
-        { name: "India Gate", lat: 28.6129, lon: 77.2295 },
-        { name: "Connaught Place", lat: 28.6315, lon: 77.2167 },
-        { name: "Lotus Temple", lat: 28.5535, lon: 77.2588 },
-        { name: "Lodhi Garden", lat: 28.5933, lon: 77.2197 }
+        {% for comp in complains %}
+        { name: "{{comp.landmark}}", lat: {{comp.locx}}, lon: {{comp.locy}} },
+        
+        {% endfor%}
         ];
 
         locations.forEach(function(place) {
             var marker = L.marker([place.lat, place.lon]).addTo(map);
-            marker.bindPopup(`<b>${place.name}</b><br>Water Logging<br>Date`);
+            {% comment %} marker.bindPopup(`<b>${place.name}</b><br>Water Logging<br>Date`); {% endcomment %}
         });
   </script>
 </body>

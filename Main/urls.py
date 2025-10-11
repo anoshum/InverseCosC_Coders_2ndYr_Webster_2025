@@ -11,5 +11,5 @@ urlpatterns = [
     path('dmn', views.admin_page,name='dmn'),
     path('work',views.worker,name='worker'),
     path('sc',views.F_n,name='subc'),
-    
+    path('upd',views.upda,name='upda'),
 ]

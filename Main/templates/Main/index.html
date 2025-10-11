@@ -150,8 +150,8 @@
             <div class="form" action='/dashboard'>
                 <form action='dashboard' method='post'>
                 {%csrf_token%}
-                    {% for message in messages %}
-                <h4 class="text-primary">{{message}}</h4>
+                {% for message in messages %}
+                <h4 class="text-warning">{{message}}</h4>
                 {%endfor%}
                 <p>Enter Username</p>
                 <input type="username" name ='un' placeholder="Enter Username" required>
@@ -174,8 +174,15 @@
                 <h5>{{ comp.domain_name}}</h5>
                 <h4>{{ comp.landmark}}</h4>
                 <p class="lead ">{{ comp.info }}</p>
-                <button class="btn {{ comp.status }}">{{comp.status}}</button>
-                <p class="lead fw-bolder">Date : {{ comp.datee}}</p>
+                {%if comp.status == 'Pending'%}
+                <button class="btn btn-danger">{{comp.status}}</button>
+                {% endif %}
+                {%if comp.status == 'Working'%}
+                <button class="btn btn-warning">{{comp.status}}</button>
+                {% endif %}
+                {%if comp.status == 'Done'%}
+                <button class="btn btn-primary">{{comp.status}}</button>
+                {% endif %}<p class="lead fw-bolder">Date : {{ comp.datee}}</p>
                 
               </div>
             </div>

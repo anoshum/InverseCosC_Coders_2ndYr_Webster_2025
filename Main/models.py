@@ -19,7 +19,7 @@ class Worker(models.Model):
     worker_pass = models.CharField(max_length=30)
     worker_phone = models.CharField(max_length=12)
     worker_email = models.CharField(max_length=50)
-    
+    domain = models.CharField(max_length=50,default='')
     def __str__(self):
         return self.worker_name    
 

@@ -8,30 +8,23 @@
     <!-- Linking Bootstrap 5 for responsive styling -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-  </head>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <title>Admin</title>
 </head>
 <body style="background-color: bisque;">
 
     <!-- ================= NAVBAR SECTION ================= -->
-    <nav class="navbar navbar-expand-lg text-bg-danger p-3">
-        <div class="container-fluid">
-            <!-- Brand Name -->
-            <a class="navbar-brand text-white" href="#">FiksIt</a>
-
-            <!-- Navbar Toggler (for small screens) -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <!-- Navbar Links -->
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
-                    <a class="nav-link active text-white" aria-current="page" href="#">Back To Login</a>
-                </div>
-            </div>
-        </div>
-    </nav>
+    <header class="flex bg-[#970FF2] text-white p-1 justify-between m-2 rounded-lg">
+    <div class="logo ">FiksIt</div>
+    <div class="nav-links flex gap-9 my-2 mx-2">
+        <form action='/new' method='post'>
+            {%csrf_token%}
+            <input type='hidden' name='un' value='{{usern}}'>
+            <input type='submit' value='file complain' class='btn btn-primary'>
+        </form>
+    </div>
+</header>
 
     <!-- ================= MAIN CONTAINER ================= -->
     <div class="container-fluid">
@@ -43,41 +36,21 @@
 
                 <div class="container">
                     <div class="row">
-
                         <!-- ========== LEFT PANEL: List of Complaints ========== -->
                         <div class="col-6" style="overflow:scroll; height: 70vh; background-color: azure;">
                             <!-- List of all complaints. Clicking on any will show details on the right side. -->
-
-                            <!-- Example of an individual complaint card -->
-                            <div class="individual-complain mt-3">
-                                <div class="m-1 container-fluid bg-light p-3 rounded-3 border border-black border-1">
-                                    <h5>Water Leakage</h5>
-                                    <p class="lead">Near Phaphamau, in front of BaroodKhana</p>
-                                    <button class="btn btn-danger">Not Started</button>
-                                    <button class="btn btn-warning">Expand This</button>
+                            {% for comp in complains %}
+                                <!-- Example of an individual complaint card -->
+                                <div class="individual-complain mt-3">
+                                    <div class="m-1 container-fluid bg-light p-3 rounded-3 border border-black border-1">
+                                    <h5>{{ comp.domain_name}}</h5>
+                                    <h4>{{ comp.landmark}}</h4>
+                                    <p class="lead ">{{ comp.info }}</p>
+                                    <button class="btn {{ comp.status }}">{{comp.status}}</button>
+                                    <p class="lead fw-bolder">Date : {{ comp.datee}}</p>                
                                 </div>
-                            </div>
-
-                            <!-- Additional dummy complaints -->
-                            <div class="individual-complain mt-3">
-                                <div class="m-1 container-fluid bg-light p-3 rounded-3 border border-black border-1">
-                                    <h5>Water Leakage</h5>
-                                    <p class="lead">Near Phaphamau, in front of BaroodKhana</p>
-                                    <button class="btn btn-danger">Not Started</button>
-                                    <button class="btn btn-warning">Expand This</button>
-                                </div>
-                            </div>
-
-                            <!-- (Repeated complaint cards just for UI demonstration) -->
-                            <div class="individual-complain mt-3">
-                                <div class="m-1 container-fluid bg-light p-3 rounded-3 border border-black border-1">
-                                    <h5>Water Leakage</h5>
-                                    <p class="lead">Near Phaphamau, in front of BaroodKhana</p>
-                                    <button class="btn btn-danger">Not Started</button>
-                                    <button class="btn btn-warning">Expand This</button>
-                                </div>
-                            </div>
                         </div>
+                    </div>
 
                         <!-- ========== RIGHT PANEL: Detailed Info of Selected Complaint ========== -->
                         <div class="col-6">
@@ -117,15 +90,37 @@
             </div>
 
             <!-- ================= RIGHT SIDE (Map Section) ================= -->
-            <div class="bg-info col-4 rounded-2 p-3" style="height: 80vh;">
-                <!-- Map Display Section -->
-                Here map will be shown
-            </div>
+        <div>
+            <div id="map" class="map bg-info h-96 m-4 rounded-2 p-2">
+        </div>
         </div>
     </div>
+    <footer class="mt-4 bg-[#970FF2] text-white p-2 text-center">
+        <div class="footer-content text-lg my-2;">
+            <p>Made by team InverseCosC_Coders 😎</p>
+        </div>
+    </footer>
+<script>
+        var map = L.map('map').setView([28.6139, 77.2090], 13);
 
-    <!-- Bootstrap JavaScript Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Step 3: List of nearby locations (latitude, longitude, name)
+        var locations = [
+        { name: "AIIMS Hospital", lat: 28.5665, lon: 77.2100 },
+        { name: "India Gate", lat: 28.6129, lon: 77.2295 },
+        { name: "Connaught Place", lat: 28.6315, lon: 77.2167 },
+        { name: "Lotus Temple", lat: 28.5535, lon: 77.2588 },
+        { name: "Lodhi Garden", lat: 28.5933, lon: 77.2197 }
+        ];
+
+        locations.forEach(function(place) {
+            var marker = L.marker([place.lat, place.lon]).addTo(map);
+            marker.bindPopup(`<b>${place.name}</b><br>Water Logging<br>Date`);
+        });
+  </script>
 
 </body>
 </html>

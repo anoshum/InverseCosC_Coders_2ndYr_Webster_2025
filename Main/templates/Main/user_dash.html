@@ -29,39 +29,42 @@
 </head>
 <body style="background-color: bisque;">
 <header class="flex bg-[#970FF2] text-white p-1 justify-between m-2 rounded-lg">
-        <div class="logo ">FiksIt</div>
-        <div class="nav-links flex gap-9 my-2 mx-2">
-            <form action='/new' method='post'>{%csrf_token%}<input type='hidden' name='un' value='{{usern}}'><input type='submit' value='file complain' class='btn btn-primary'></form>
-            </div>
-    </header>
+    <div class="logo ">FiksIt</div>
+    <div class="nav-links flex gap-9 my-2 mx-2">
+        <form action='/new' method='post'>{%csrf_token%}<input type='hidden' name='un' value='{{usern}}'><input type='submit' value='file complain' class='btn btn-primary'></form>
+    </div>
+</header>
     <div class="container-fluid">
         <div class="row">
-            <div class="p-3 col-8 rounded-2" style="height: 80vh; opacity: 1; ">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12 " style="overflow:scroll; height:70vh; background-color: azure; border-radius: 10px;">
+    <div class="p-3 col-8 rounded-2 flex" style="height: 80vh; opacity: 1; ">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 " style="overflow:scroll; height:70vh; background-color: azure; border-radius: 10px;">
                     <div class="col-6" style=" background-color: azure; border-radius: 10px;"> 
-                        <!-- here the list of all complains will be shown and clicking on specific complain will lead to show its information  on the just right tab.  -->
+                            <!-- here the list of all complains will be shown and clicking on specific complain will lead to show its information  on the just right tab.  -->
 
-            {% for comp in complains %}
-            <div class="individual-complain mt-3">
-              <div class="m-1 container-fluid bg-light p-3 rounded-3 border border-black border-1">
-                <h5>{{ comp.domain_name}}</h5>
-                <p class="lead">{{ comp.info}}</p>
-                <button class="btn btn-danger">{{comp.status}}</button>
-                <button class="btn btn-primary">On Map</button>
-                <p class="lead fw-bolder">Date : {{ comp.datee}}</p>
-                <img style='width:70%;' src= 'images/{{comp.image}}' class='border-3 border-danger rounded-3' >
-                
-              </div>
-            </div>
+                            {% for comp in complains %}
+                        <div class="individual-complain mt-3">
+                            <div class="m-1 container-fluid bg-light p-3 rounded-3 border border-black border-1">
+                                <h5>{{ comp.domain_name}}</h5>
+                                <p class="lead">{{ comp.info}}</p>
+                                <button class="btn btn-danger">{{comp.status}}</button>
+                                <button class="btn btn-primary">On Map</button>
+                                <p class="lead fw-bolder">Date : {{ comp.datee}}</p>
+                                <img style='width:70%;' src= 'images/{{comp.image}}' class='border-3 border-danger rounded-3' >
+                            </div>
+                        </div>
             {% endfor %}
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    </div>
+
+
+
+
+    <div>
         <div id="map" class="map bg-info h-96 m-4 rounded-2 p-2">
     </div>
         <!-- Footer section -->
